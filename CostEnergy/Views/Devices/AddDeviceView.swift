@@ -42,82 +42,78 @@ struct AddDeviceView: View {
     }
     
     var body: some View {
-        ZStack {
-            Color("dark2").ignoresSafeArea()
-            
-            ScrollView {
-                VStack(spacing: 24) {
-                    header
+        ScrollView {
+            VStack(spacing: 24) {
+                header
+                
+                VStack(spacing: 20) {
+                    subtitle
                     
-                    VStack(spacing: 20) {
-                        subtitle
-                        
-                        inputField(
-                            label: "Appliance name",
-                            placeholder: "Enter name",
-                            text: $name
-                        )
-                        
-                        inputField(
-                            label: "Power (W)",
-                            placeholder: "Enter power",
-                            text: $powerConsumption,
-                            keyboardType: .numberPad
-                        )
-                        
-                        usageTypePicker
-                        
-                        timeInputSection
-                        
-                        colorPicker
-                    }
-                    .padding(.horizontal, 20)
+                    inputField(
+                        label: "Appliance name",
+                        placeholder: "Enter name",
+                        text: $name
+                    )
                     
-                    VStack(spacing: 12) {
-                        Button {
-                            saveDevice()
-                        } label: {
-                            Text("Add")
-                                .font(.body)
-                                .fontWeight(.semibold)
-                                .foregroundStyle(.black)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 16)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(isValid ? .mustard : Color.gray.opacity(0.5))
-                                )
-                        }
-                        .disabled(!isValid)
-                        
-                        Button {
-                            dismiss()
-                        } label: {
-                            Text("Cancel")
-                                .font(.body)
-                                .fontWeight(.semibold)
-                                .foregroundStyle(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 16)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.white.opacity(0.1))
-                                )
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 8)
+                    inputField(
+                        label: "Power (W)",
+                        placeholder: "Enter power",
+                        text: $powerConsumption,
+                        keyboardType: .numberPad
+                    )
+                    
+                    usageTypePicker
+                    
+                    timeInputSection
+                    
+                    colorPicker
                 }
-                .padding(.vertical, 20)
+                .padding(.horizontal)
+                
+                VStack(spacing: 12) {
+                    Button {
+                        saveDevice()
+                    } label: {
+                        Text("Add")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundStyle(.black)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(isValid ? .mustard : Color.gray.opacity(0.5))
+                            )
+                    }
+                    .disabled(!isValid)
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.white.opacity(0.1))
+                            )
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 8)
             }
+            .padding(.vertical, 20)
         }
+        .bgGradient()
     }
     
     private var header: some View {
         HStack {
+            Spacer()
+            
             Text("Add appliance")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+                .font(.system(size: 22, weight: .bold))
                 .foregroundStyle(.mustard)
             
             Spacer()
@@ -126,10 +122,11 @@ struct AddDeviceView: View {
                 dismiss()
             } label: {
                 Image(systemName: "xmark")
-                    .font(.body)
+                    .resizable()
+                    .frame(width: 15, height: 15)
                     .foregroundStyle(.white.opacity(0.7))
                     .frame(width: 32, height: 32)
-                    .background(Color.white.opacity(0.1))
+                    .background(Color.white.opacity(0.05))
                     .clipShape(Circle())
             }
         }
@@ -138,11 +135,9 @@ struct AddDeviceView: View {
     
     private var subtitle: some View {
         Text("Specify the parameters of the electrical appliance to calculate consumption")
-            .font(.body)
-            .foregroundStyle(.secondary)
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .fixedSize(horizontal: false, vertical: true)
+            .font(.system(size: 18))
+            .foregroundStyle(.white.opacity(0.5))
+            .multilineTextAlignment(.center)
     }
     
     private func inputField(
@@ -153,11 +148,11 @@ struct AddDeviceView: View {
     ) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(label)
-                .font(.body)
-                .foregroundStyle(.white)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(.white.opacity(0.5))
             
             TextField(placeholder, text: text)
-                .font(.body)
+                .font(.system(size: 18))
                 .foregroundStyle(.white)
                 .padding()
                 .background(
@@ -175,8 +170,8 @@ struct AddDeviceView: View {
     private var usageTypePicker: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Type of use")
-                .font(.body)
-                .foregroundStyle(.white)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(.white.opacity(0.5))
             
             Menu {
                 ForEach(UsageTypes.all, id: \.self) { type in
@@ -194,14 +189,15 @@ struct AddDeviceView: View {
             } label: {
                 HStack {
                     Text(usageType)
-                        .font(.body)
+                        .font(.system(size: 18))
                         .foregroundStyle(.white)
                     
                     Spacer()
                     
                     Image(systemName: "chevron.down")
-                        .font(.subheadline)
-                        .foregroundStyle(.white.opacity(0.7))
+                        .resizable()
+                        .frame(width: 15, height: 8)
+                        .foregroundStyle(.white.opacity(0.5))
                 }
                 .padding()
                 .background(
@@ -219,17 +215,17 @@ struct AddDeviceView: View {
     private var timeInputSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Average daily usage time")
-                .font(.body)
-                .foregroundStyle(.white)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(.white.opacity(0.5))
             
             HStack(spacing: 12) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Hours")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(.white.opacity(0.5))
                     
                     TextField("0", text: $hours)
-                        .font(.body)
+                        .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(.white)
                         .padding()
                         .background(
@@ -245,11 +241,11 @@ struct AddDeviceView: View {
                 
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Minutes")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(.white.opacity(0.5))
                     
                     TextField("0", text: $minutes)
-                        .font(.body)
+                        .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(.white)
                         .padding()
                         .background(
@@ -269,8 +265,8 @@ struct AddDeviceView: View {
     private var colorPicker: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Card color")
-                .font(.body)
-                .foregroundStyle(.white)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(.white.opacity(0.5))
             
             HStack(spacing: 16) {
                 ForEach(colorOptions, id: \.name) { option in
@@ -288,7 +284,9 @@ struct AddDeviceView: View {
                             
                             if selectedColor == option.name {
                                 Image(systemName: "checkmark")
-                                    .font(.body.weight(.bold))
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                    .fontWeight(.bold)
                                     .foregroundStyle(option.color)
                             }
                         }
