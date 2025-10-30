@@ -11,7 +11,8 @@ import SwiftUI
 struct CostEnergyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabView()
+                .preferredColorScheme(nil)
         }
     }
 }
