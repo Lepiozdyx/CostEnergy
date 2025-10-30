@@ -30,11 +30,11 @@ struct DevicesView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
                 Text("My Devices")
-                    .font(.system(size: 26))
+                    .font(.system(size: 24))
                     .foregroundStyle(.mustard)
                 
                 Text("\(viewModel.devices.count) \(viewModel.devices.count == 1 ? "device" : "devices")")
-                    .font(.system(size: 20))
+                    .font(.system(size: 18))
                     .foregroundStyle(.white.opacity(0.5))
             }
             

@@ -130,6 +130,22 @@ final class TimerViewModel: ObservableObject {
         persistTimerStates()
     }
     
+    func resetTimer(at index: Int) {
+        guard index < timerStates.count else { return }
+        
+        let deviceID = timerStates[index].deviceID
+        let timerID = timerStates[index].id
+        
+        timers[timerID]?.cancel()
+        timers.removeValue(forKey: timerID)
+        
+        let newState = TimerState(id: timerID, deviceID: deviceID, startDate: Date())
+        timerStates[index] = newState
+        
+        startTimerPublisher(for: timerID)
+        persistTimerStates()
+    }
+    
     func saveUsageRecord(at index: Int, devices: [Device]) {
         guard index < timerStates.count else { return }
         
