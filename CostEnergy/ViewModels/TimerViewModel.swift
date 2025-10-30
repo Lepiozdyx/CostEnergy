@@ -8,14 +8,31 @@ final class TimerViewModel: ObservableObject {
     @Published var currentEnergy: Double = 0
     @Published var currentCost: Double = 0
     @Published var showSaveButton = false
+    @Published var settings: AppSettings
     
     private var timer: AnyCancellable?
     private var startDate: Date?
     private let calculationManager = CalculationManager.shared
     private let storageManager = StorageManager.shared
+    private var cancellables = Set<AnyCancellable>()
     
-    var settings: AppSettings {
-        storageManager.loadSettings()
+    init() {
+        self.settings = storageManager.loadSettings()
+        setupNotifications()
+    }
+    
+    deinit {
+        cancellables.removeAll()
+    }
+    
+    private func setupNotifications() {
+        NotificationCenter.default
+            .publisher(for: NotificationNames.settingsDidUpdate)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.settings = self.storageManager.loadSettings()
+            }
+            .store(in: &cancellables)
     }
     
     func startTimer() {
@@ -53,7 +70,6 @@ final class TimerViewModel: ObservableObject {
               let start = startDate else { return }
         
         let endDate = Date()
-        let settings = self.settings
         
         let record = UsageRecord(
             deviceID: device.id,
@@ -77,7 +93,6 @@ final class TimerViewModel: ObservableObject {
         
         elapsedTime += 1
         
-        let settings = self.settings
         currentEnergy = calculationManager.calculateEnergy(
             powerKW: device.powerConsumption,
             timeSeconds: elapsedTime

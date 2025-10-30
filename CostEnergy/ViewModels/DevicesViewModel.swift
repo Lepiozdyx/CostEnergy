@@ -5,9 +5,24 @@ final class DevicesViewModel: ObservableObject {
     @Published var devices: [Device] = []
     
     private let storageManager = StorageManager.shared
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
         loadDevices()
+        setupNotifications()
+    }
+    
+    deinit {
+        cancellables.removeAll()
+    }
+    
+    private func setupNotifications() {
+        NotificationCenter.default
+            .publisher(for: NotificationNames.devicesDidUpdate)
+            .sink { [weak self] _ in
+                self?.loadDevices()
+            }
+            .store(in: &cancellables)
     }
     
     func loadDevices() {

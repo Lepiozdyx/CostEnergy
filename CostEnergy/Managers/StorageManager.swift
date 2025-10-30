@@ -12,6 +12,7 @@ final class StorageManager {
     func saveDevices(_ devices: [Device]) {
         guard let encoded = try? encoder.encode(devices) else { return }
         userDefaults.set(encoded, forKey: StorageKeys.devices)
+        NotificationCenter.default.post(name: NotificationNames.devicesDidUpdate, object: nil)
     }
     
     func loadDevices() -> [Device] {
@@ -38,6 +39,7 @@ final class StorageManager {
     func saveSettings(_ settings: AppSettings) {
         guard let encoded = try? encoder.encode(settings) else { return }
         userDefaults.set(encoded, forKey: StorageKeys.appSettings)
+        NotificationCenter.default.post(name: NotificationNames.settingsDidUpdate, object: nil)
     }
     
     func loadSettings() -> AppSettings {

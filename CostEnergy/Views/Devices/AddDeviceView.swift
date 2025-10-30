@@ -23,7 +23,7 @@ struct AddDeviceView: View {
         
         _name = State(initialValue: deviceToEdit?.name ?? "")
         _powerConsumption = State(initialValue: deviceToEdit?.powerConsumption.formatted(decimals: 2) ?? "")
-        _usageType = State(initialValue: deviceToEdit?.usageType ?? "")
+        _usageType = State(initialValue: deviceToEdit?.usageType ?? UsageTypes.shortTerm)
         _selectedIcon = State(initialValue: deviceToEdit?.iconName ?? "bolt.fill")
     }
     
@@ -40,7 +40,12 @@ struct AddDeviceView: View {
                     TextField("Power Consumption (kW)", text: $powerConsumption)
                         .keyboardType(.decimalPad)
                     
-                    TextField("Usage Type", text: $usageType)
+                    Picker("Usage Type", selection: $usageType) {
+                        ForEach(UsageTypes.all, id: \.self) { type in
+                            Text(type).tag(type)
+                        }
+                    }
+                    .pickerStyle(.segmented)
                 }
                 
                 Section("Icon") {
