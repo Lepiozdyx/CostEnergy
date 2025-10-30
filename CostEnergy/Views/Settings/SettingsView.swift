@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
+    @State private var showResetAlert = false
     
     private let currencies = ["USD", "RUB", "EUR"]
     
@@ -69,8 +70,32 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
+                
+                Section {
+                    Button(role: .destructive) {
+                        showResetAlert = true
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("Reset All Data")
+                                .fontWeight(.semibold)
+                            Spacer()
+                        }
+                    }
+                } footer: {
+                    Text("This will delete all devices, usage records, and reset settings to default values. This action cannot be undone.")
+                        .font(.caption)
+                }
             }
             .navigationTitle("Settings")
+            .alert("Reset All Data?", isPresented: $showResetAlert) {
+                Button("Cancel", role: .cancel) {}
+                Button("Reset", role: .destructive) {
+                    viewModel.resetAllData()
+                }
+            } message: {
+                Text("This will permanently delete all your devices, usage records, and reset settings to default values. This action cannot be undone.")
+            }
         }
     }
     

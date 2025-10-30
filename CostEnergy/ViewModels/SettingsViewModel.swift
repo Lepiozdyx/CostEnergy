@@ -25,6 +25,11 @@ final class SettingsViewModel: ObservableObject {
         saveSettings()
     }
     
+    func resetAllData() {
+        storageManager.resetAllData()
+        settings = storageManager.loadSettings()
+    }
+    
     private func saveSettings() {
         storageManager.saveSettings(settings)
     }

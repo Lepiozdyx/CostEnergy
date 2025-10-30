@@ -49,5 +49,14 @@ final class StorageManager {
         }
         return settings
     }
+    
+    func resetAllData() {
+        userDefaults.removeObject(forKey: StorageKeys.devices)
+        userDefaults.removeObject(forKey: StorageKeys.usageRecords)
+        userDefaults.removeObject(forKey: StorageKeys.appSettings)
+        
+        NotificationCenter.default.post(name: NotificationNames.devicesDidUpdate, object: nil)
+        NotificationCenter.default.post(name: NotificationNames.settingsDidUpdate, object: nil)
+    }
 }
 
