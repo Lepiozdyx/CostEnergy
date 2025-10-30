@@ -50,13 +50,34 @@ final class StorageManager {
         return settings
     }
     
+    func saveTimerStates(_ states: [TimerState]) {
+        guard let encoded = try? encoder.encode(states) else { return }
+        userDefaults.set(encoded, forKey: StorageKeys.timerStates)
+    }
+    
+    func loadTimerStates() -> [TimerState] {
+        guard let data = userDefaults.data(forKey: StorageKeys.timerStates),
+              let states = try? decoder.decode([TimerState].self, from: data) else {
+            return []
+        }
+        return states
+    }
+    
     func resetAllData() {
-        userDefaults.removeObject(forKey: StorageKeys.devices)
-        userDefaults.removeObject(forKey: StorageKeys.usageRecords)
-        userDefaults.removeObject(forKey: StorageKeys.appSettings)
+        NotificationCenter.default.post(name: NotificationNames.resetDataRequested, object: nil)
         
-        NotificationCenter.default.post(name: NotificationNames.devicesDidUpdate, object: nil)
-        NotificationCenter.default.post(name: NotificationNames.settingsDidUpdate, object: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            guard let self = self else { return }
+            
+            self.userDefaults.removeObject(forKey: StorageKeys.devices)
+            self.userDefaults.removeObject(forKey: StorageKeys.usageRecords)
+            self.userDefaults.removeObject(forKey: StorageKeys.appSettings)
+            self.userDefaults.removeObject(forKey: StorageKeys.timerStates)
+            
+            NotificationCenter.default.post(name: NotificationNames.devicesDidUpdate, object: nil)
+            NotificationCenter.default.post(name: NotificationNames.settingsDidUpdate, object: nil)
+            NotificationCenter.default.post(name: NotificationNames.timersDidUpdate, object: nil)
+        }
     }
 }
 

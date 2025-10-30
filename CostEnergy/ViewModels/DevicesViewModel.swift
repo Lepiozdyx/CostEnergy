@@ -42,11 +42,24 @@ final class DevicesViewModel: ObservableObject {
     }
     
     func deleteDevice(_ device: Device) {
+        NotificationCenter.default.post(
+            name: NotificationNames.deviceWillBeDeleted,
+            object: device.id
+        )
+        
         devices.removeAll { $0.id == device.id }
         saveDevices()
     }
     
     func deleteDevices(at offsets: IndexSet) {
+        for index in offsets {
+            let device = devices[index]
+            NotificationCenter.default.post(
+                name: NotificationNames.deviceWillBeDeleted,
+                object: device.id
+            )
+        }
+        
         devices.remove(atOffsets: offsets)
         saveDevices()
     }

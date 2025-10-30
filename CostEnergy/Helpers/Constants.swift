@@ -4,6 +4,7 @@ enum StorageKeys {
     static let devices = "devices"
     static let usageRecords = "usageRecords"
     static let appSettings = "appSettings"
+    static let timerStates = "timerStates"
 }
 
 enum DefaultValues {
@@ -22,6 +23,8 @@ enum SFSymbols {
     static let delete = "trash"
     static let play = "play.fill"
     static let stop = "stop.fill"
+    static let pause = "pause.fill"
+    static let resume = "play.fill"
     static let save = "checkmark"
 }
 
@@ -34,5 +37,8 @@ enum UsageTypes {
 enum NotificationNames {
     static let devicesDidUpdate = Notification.Name("devicesDidUpdate")
     static let settingsDidUpdate = Notification.Name("settingsDidUpdate")
+    static let timersDidUpdate = Notification.Name("timersDidUpdate")
+    static let deviceWillBeDeleted = Notification.Name("deviceWillBeDeleted")
+    static let resetDataRequested = Notification.Name("resetDataRequested")
 }
 
