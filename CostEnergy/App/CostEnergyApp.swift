@@ -16,7 +16,7 @@ struct CostEnergyApp: App {
         WindowGroup {
             MainTabView()
                 .environmentObject(timerViewModel)
-                .preferredColorScheme(nil)
+                .preferredColorScheme(.dark)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
                     timerViewModel.onScenePhaseChange(.background)
                 }

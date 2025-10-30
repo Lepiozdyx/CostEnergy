@@ -14,12 +14,12 @@ enum DefaultValues {
 }
 
 enum SFSymbols {
-    static let devices = "bolt.fill"
+    static let devices = "bolt"
     static let timer = "timer"
-    static let statistics = "chart.bar.fill"
+    static let statistics = "chart.bar.xaxis.ascending"
     static let settings = "gearshape.fill"
     static let add = "plus"
-    static let edit = "pencil"
+    static let edit = "square.and.pencil"
     static let delete = "trash"
     static let play = "play.fill"
     static let stop = "stop.fill"

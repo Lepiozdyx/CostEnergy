@@ -5,62 +5,135 @@ struct DeviceCard: View {
     let onEdit: () -> Void
     let onDelete: () -> Void
     
+    @State private var settings = StorageManager.shared.loadSettings()
+    
+    private var cardColor: Color {
+        switch device.colorName {
+        case "raspberry": return .raspberry
+        case "mustard": return .mustard
+        case "lavender": return .lavender
+        case "sky": return .sky
+        default: return .raspberry
+        }
+    }
+    
+    private var currencySymbol: String {
+        switch settings.currency {
+        case "RUB", "₽": return "₽"
+        case "USD", "$": return "$"
+        case "EUR", "€": return "€"
+        default: return settings.currency
+        }
+    }
+    
     var body: some View {
-        HStack(spacing: 16) {
-            Image(systemName: device.iconName)
-                .font(.title2)
-                .foregroundStyle(.blue)
-                .frame(width: 44, height: 44)
-                .background(Color.blue.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-            
-            VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
                 Text(device.name)
-                    .font(.headline)
+                    .font(.system(size: 20))
+                    .foregroundStyle(.white)
+                    .lineLimit(1)
                 
-                HStack(spacing: 4) {
-                    Text("\(device.powerConsumption.formatted(decimals: 2)) kW")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                Spacer()
+                
+                HStack(spacing: 12) {
+                    Button {
+                        onEdit()
+                    } label: {
+                        Image(systemName: SFSymbols.edit)
+                            .resizable()
+                            .frame(width: 18, height: 18)
+                            .foregroundStyle(.sky.opacity(0.7))
+                            .frame(width: 32, height: 32)
+                            .background(.sky.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
                     
-                    Text("•")
-                        .foregroundStyle(.secondary)
-                    
-                    Text(device.usageType)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                    Button {
+                        onDelete()
+                    } label: {
+                        Image(systemName: SFSymbols.delete)
+                            .resizable()
+                            .frame(width: 15, height: 17)
+                            .foregroundStyle(.raspberry.opacity(0.7))
+                            .frame(width: 32, height: 32)
+                            .background(.raspberry.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
                 }
             }
             
-            Spacer()
-        }
-        .padding()
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: .black.opacity(0.05), radius: 5, y: 2)
-        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            Button(role: .destructive) {
-                onDelete()
-            } label: {
-                Label("Delete", systemImage: SFSymbols.delete)
+            Text(device.usageType)
+                .font(.system(size: 14))
+                .foregroundStyle(.white.opacity(0.7))
+            
+            HStack(spacing: 4) {
+                Image(systemName: SFSymbols.devices)
+                    .resizable()
+                    .frame(width: 15, height: 20)
+                    .foregroundStyle(cardColor)
+                
+                Text("\(Int(device.powerConsumption)) W")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(cardColor)
             }
             
-            Button {
-                onEdit()
-            } label: {
-                Label("Edit", systemImage: SFSymbols.edit)
+            HStack {
+                Text("Average time/day:")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(.white.opacity(0.8))
+                
+                Spacer()
+                
+                Text(device.formattedDailyTime)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(.white)
             }
-            .tint(.blue)
+            
+            Divider()
+                .background(Color.white.opacity(0.2))
+            
+            HStack {
+                Text("~Cost/day:")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.white.opacity(0.8))
+                
+                Spacer()
+                
+                Text("\(device.dailyCost(tariffRate: settings.tariffRate).formatted(decimals: 2)) \(currencySymbol)")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(cardColor)
+            }
         }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(cardColor.opacity(0.1))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .strokeBorder(cardColor, lineWidth: 2)
+                )
+        )
     }
 }
 
 #Preview {
-    DeviceCard(
-        device: Device(name: "Air Conditioner", powerConsumption: 2.5, usageType: "Cooling"),
-        onEdit: {},
-        onDelete: {}
-    )
-    .padding()
+    ZStack {
+        Color.black.ignoresSafeArea()
+        
+        DeviceCard(
+            device: Device(
+                name: "Iron",
+                powerConsumption: 2200,
+                usageType: UsageTypes.shortTerm,
+                averageDailyHours: 12,
+                averageDailyMinutes: 30,
+                colorName: "raspberry"
+            ),
+            onEdit: {},
+            onDelete: {}
+        )
+        .padding()
+    }
 }
 
