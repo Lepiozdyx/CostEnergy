@@ -113,7 +113,7 @@ struct AddDeviceView: View {
             Spacer()
             
             Text("Add appliance")
-                .font(.system(size: 22, weight: .bold))
+                .font(.system(size: 22))
                 .foregroundStyle(.mustard)
             
             Spacer()
