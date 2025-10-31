@@ -4,79 +4,76 @@ struct UsageHistoryCard: View {
     let record: UsageRecord
     let deviceName: String
     
+    private var cardColor: Color {
+        .raspberry
+    }
+    
+    private var currencySymbol: String {
+        switch record.currency {
+        case "RUB", "₽": return "₽"
+        case "USD", "$": return "$"
+        case "EUR", "€": return "€"
+        default: return record.currency
+        }
+    }
+    
     var body: some View {
-        VStack(spacing: 12) {
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(deviceName)
-                        .font(.headline)
-                    
-                    Text(record.startDate.formattedWithTime())
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+        HStack(spacing: 12) {
+            Circle()
+                .fill(.mustard)
+                .frame(width: 8, height: 8)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(deviceName)
+                    .font(.system(size: 18))
+                    .foregroundStyle(.white)
                 
-                Spacer()
+                Text("\(record.startDate.formattedWithTime()) • \(record.duration.formattedDuration())")
+                    .font(.system(size: 14))
+                    .foregroundStyle(.white.opacity(0.5))
             }
             
-            Divider()
+            Spacer()
             
-            HStack(spacing: 16) {
-                metricItem(
-                    icon: "clock.fill",
-                    value: record.duration.formattedDuration(),
-                    color: .blue
-                )
+            VStack(alignment: .trailing, spacing: 4) {
+                Text("\(record.cost.formatted(.number.precision(.fractionLength(2)))) \(currencySymbol)")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(.mustard)
                 
-                Spacer()
-                
-                metricItem(
-                    icon: "bolt.fill",
-                    value: record.energyConsumed.formattedEnergy(),
-                    color: .orange
-                )
-                
-                Spacer()
-                
-                metricItem(
-                    icon: "dollarsign.circle.fill",
-                    value: record.cost.formattedCurrency(currency: record.currency),
-                    color: .green
-                )
+                Text("\(record.energyConsumed.formatted(.number.precision(.fractionLength(3)))) kWh")
+                    .font(.system(size: 14))
+                    .foregroundStyle(.white.opacity(0.5))
             }
         }
         .padding()
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: .black.opacity(0.05), radius: 5, y: 2)
-    }
-    
-    private func metricItem(icon: String, value: String, color: Color) -> some View {
-        HStack(spacing: 6) {
-            Image(systemName: icon)
-                .font(.caption)
-                .foregroundStyle(color)
-            
-            Text(value)
-                .font(.caption)
-                .fontWeight(.medium)
-        }
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.dark2.opacity(0.5))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .strokeBorder(.white.opacity(0.1), lineWidth: 1)
+                )
+        )
     }
 }
 
 #Preview {
-    UsageHistoryCard(
-        record: UsageRecord(
-            deviceID: UUID(),
-            startDate: Date(),
-            endDate: Date().addingTimeInterval(3600),
-            duration: 3600,
-            energyConsumed: 2.5,
-            cost: 0.30,
-            currency: "USD"
-        ),
-        deviceName: "Air Conditioner"
-    )
-    .padding()
+    ZStack {
+        Color.black.ignoresSafeArea()
+        
+        UsageHistoryCard(
+            record: UsageRecord(
+                deviceID: UUID(),
+                startDate: Date(),
+                endDate: Date().addingTimeInterval(780),
+                duration: 780,
+                energyConsumed: 0.008,
+                cost: 0.05,
+                currency: "₽"
+            ),
+            deviceName: "Iron"
+        )
+        .padding()
+    }
 }
 
