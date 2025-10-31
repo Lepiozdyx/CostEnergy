@@ -46,7 +46,7 @@ struct TimerCard: View {
                 .fill(.white.opacity(0.05))
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
-                        .strokeBorder(.mustard, lineWidth: 2)
+                        .strokeBorder(.mustard.opacity(0.5), lineWidth: 2)
                 )
         )
     }
@@ -72,9 +72,9 @@ struct TimerCard: View {
     }
     
     private func timeComponent(value: Int, label: String) -> some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 2) {
             Text(String(format: "%02d", value))
-                .font(.system(size: 48, weight: .bold))
+                .font(.system(size: 48, weight: .semibold))
                 .foregroundStyle(.mustard)
                 .monospacedDigit()
             
@@ -87,10 +87,10 @@ struct TimerCard: View {
         .padding(.vertical, 12)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(.white.opacity(0.05))
+                .fill(.dark1.opacity(0.5))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .strokeBorder(.mustard.opacity(0.3), lineWidth: 1)
+                        .strokeBorder(.mustard.opacity(0.3), lineWidth: 2)
                 )
         )
     }
@@ -103,7 +103,7 @@ struct TimerCard: View {
                 .tracking(0.5)
             
             Text(energy.formatted(.number.precision(.fractionLength(3))))
-                .font(.system(size: 28, weight: .bold))
+                .font(.system(size: 28, weight: .semibold))
                 .foregroundStyle(.sky)
                 .monospacedDigit()
             
@@ -131,7 +131,7 @@ struct TimerCard: View {
                 .tracking(0.5)
             
             Text(cost.formatted(.number.precision(.fractionLength(2))))
-                .font(.system(size: 28, weight: .bold))
+                .font(.system(size: 28, weight: .semibold))
                 .foregroundStyle(.mustard)
                 .monospacedDigit()
             
@@ -160,17 +160,18 @@ struct TimerCard: View {
                 HStack(spacing: 8) {
                     Image(systemName: SFSymbols.play)
                         .resizable()
-                        .frame(width: 14, height: 16)
+                        .scaledToFit()
+                        .frame(height: 16)
                     
                     Text("Start")
-                        .font(.system(size: 20, weight: .bold))
+                        .font(.system(size: 20, weight: .semibold))
                 }
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .background(
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(red: 0.4, green: 0.8, blue: 0.4))
+                        .fill(.green)
                 )
             }
         } else {
@@ -186,10 +187,11 @@ struct TimerCard: View {
                         HStack(spacing: 8) {
                             Image(systemName: isPaused ? SFSymbols.resume : SFSymbols.pause)
                                 .resizable()
-                                .frame(width: isPaused ? 14 : 14, height: 16)
+                                .scaledToFit()
+                                .frame(height: 16)
                             
                             Text(isPaused ? "Resume" : "Pause")
-                                .font(.system(size: 20, weight: .bold))
+                                .font(.system(size: 20, weight: .semibold))
                         }
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
@@ -203,10 +205,11 @@ struct TimerCard: View {
                     Button {
                         onReset()
                     } label: {
-                        Image(systemName: "arrow.clockwise")
+                        Image(systemName: "arrow.trianglehead.counterclockwise.rotate.90")
                             .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundStyle(.white.opacity(0.7))
+                            .scaledToFit()
+                            .frame(height: 18)
+                            .foregroundStyle(.white)
                             .frame(width: 56, height: 56)
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
@@ -223,7 +226,7 @@ struct TimerCard: View {
                     onSave()
                 } label: {
                     Text("Finish and save")
-                        .font(.system(size: 20, weight: .bold))
+                        .font(.system(size: 20, weight: .semibold))
                         .foregroundStyle(.black)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)

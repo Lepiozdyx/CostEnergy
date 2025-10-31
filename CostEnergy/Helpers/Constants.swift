@@ -21,10 +21,10 @@ enum SFSymbols {
     static let add = "plus"
     static let edit = "square.and.pencil"
     static let delete = "trash"
-    static let play = "play.fill"
-    static let stop = "stop.fill"
-    static let pause = "pause.fill"
-    static let resume = "play.fill"
+    static let play = "play"
+    static let stop = "stop"
+    static let pause = "pause"
+    static let resume = "play"
     static let save = "checkmark"
 }
 
