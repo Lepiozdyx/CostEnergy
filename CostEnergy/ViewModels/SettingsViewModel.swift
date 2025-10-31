@@ -25,6 +25,11 @@ final class SettingsViewModel: ObservableObject {
         saveSettings()
     }
     
+    func updateMeterReading(_ reading: Double) {
+        settings.currentMeterReading = reading
+        saveSettings()
+    }
+    
     func resetAllData() {
         storageManager.resetAllData()
         settings = storageManager.loadSettings()

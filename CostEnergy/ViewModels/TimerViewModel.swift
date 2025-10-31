@@ -154,7 +154,7 @@ final class TimerViewModel: ObservableObject {
         
         let totalTime = state.totalElapsedTime()
         let energy = calculationManager.calculateEnergy(
-            powerKW: device.powerConsumption,
+            powerWatts: device.powerConsumption,
             timeSeconds: totalTime
         )
         let cost = calculationManager.calculateCost(
@@ -197,7 +197,7 @@ final class TimerViewModel: ObservableObject {
     func getCurrentEnergy(for state: TimerState, device: Device) -> Double {
         let totalTime = state.totalElapsedTime()
         return calculationManager.calculateEnergy(
-            powerKW: device.powerConsumption,
+            powerWatts: device.powerConsumption,
             timeSeconds: totalTime
         )
     }

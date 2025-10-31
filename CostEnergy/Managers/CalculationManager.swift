@@ -5,7 +5,8 @@ final class CalculationManager {
     
     private init() {}
     
-    func calculateEnergy(powerKW: Double, timeSeconds: TimeInterval) -> Double {
+    func calculateEnergy(powerWatts: Double, timeSeconds: TimeInterval) -> Double {
+        let powerKW = powerWatts / 1000.0
         let timeHours = timeSeconds / 3600.0
         return powerKW * timeHours
     }
