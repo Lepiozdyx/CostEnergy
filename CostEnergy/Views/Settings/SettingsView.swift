@@ -1,10 +1,18 @@
 import SwiftUI
 
 struct SettingsView: View {
+    enum Field {
+        case tariffRate
+        case meterReading
+        case propertyName
+    }
+    
     @StateObject private var viewModel = SettingsViewModel()
     @State private var showResetAlert = false
     
-    @FocusState private var isFocused: Bool
+    @FocusState private var focusedField: Field?
+    @State private var tariffRateText = ""
+    @State private var meterReadingText = ""
     
     private var currencySymbol: String {
         switch viewModel.settings.currency {
@@ -36,7 +44,7 @@ struct SettingsView: View {
         }
         .bgGradient()
         .onTapGesture {
-            isFocused = false
+            focusedField = nil
         }
         .alert("Reset All Data?", isPresented: $showResetAlert) {
             Button("Cancel", role: .cancel) {}
@@ -95,7 +103,7 @@ struct SettingsView: View {
                                 .strokeBorder(.white.opacity(0.1), lineWidth: 1)
                         )
                 )
-                .focused($isFocused)
+                .focused($focusedField, equals: .propertyName)
             
             Text("For example: \"My Apartment\", \"Country House\", \"Office\"")
                 .font(.system(size: 14))
@@ -128,10 +136,7 @@ struct SettingsView: View {
             }
             
             HStack(spacing: 12) {
-                TextField("", value: Binding(
-                    get: { viewModel.settings.tariffRate },
-                    set: { viewModel.updateTariffRate($0) }
-                ), format: .number)
+                TextField("", text: $tariffRateText)
                     .font(.system(size: 16))
                     .foregroundStyle(.white)
                     .keyboardType(.decimalPad)
@@ -144,7 +149,17 @@ struct SettingsView: View {
                                     .strokeBorder(.white.opacity(0.1), lineWidth: 1)
                             )
                     )
-                    .focused($isFocused)
+                    .focused($focusedField, equals: .tariffRate)
+                    .onAppear {
+                        tariffRateText = formatDecimal(viewModel.settings.tariffRate)
+                    }
+                    .onChange(of: focusedField) { _, newValue in
+                        if newValue == .tariffRate {
+                            tariffRateText = formatDecimal(viewModel.settings.tariffRate)
+                        } else if newValue != .tariffRate && !tariffRateText.isEmpty {
+                            saveTariffRate()
+                        }
+                    }
                 
                 Menu {
                     Button {
@@ -236,10 +251,7 @@ struct SettingsView: View {
             }
             
             HStack(spacing: 12) {
-                TextField("", value: Binding(
-                    get: { viewModel.settings.currentMeterReading },
-                    set: { viewModel.updateMeterReading($0) }
-                ), format: .number)
+                TextField("", text: $meterReadingText)
                     .font(.system(size: 16))
                     .foregroundStyle(.white)
                     .keyboardType(.decimalPad)
@@ -252,7 +264,17 @@ struct SettingsView: View {
                                     .strokeBorder(.white.opacity(0.1), lineWidth: 1)
                             )
                     )
-                    .focused($isFocused)
+                    .focused($focusedField, equals: .meterReading)
+                    .onAppear {
+                        meterReadingText = formatDecimal(viewModel.settings.currentMeterReading)
+                    }
+                    .onChange(of: focusedField) { _, newValue in
+                        if newValue == .meterReading {
+                            meterReadingText = formatDecimal(viewModel.settings.currentMeterReading)
+                        } else if newValue != .meterReading && !meterReadingText.isEmpty {
+                            saveMeterReading()
+                        }
+                    }
                 
                 Text("kWh")
                     .font(.system(size: 16, weight: .semibold))
@@ -427,6 +449,33 @@ struct SettingsView: View {
                 )
         }
         .padding(.top, 8)
+    }
+    
+    private func formatDecimal(_ value: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        formatter.decimalSeparator = ","
+        return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
+    }
+    
+    private func saveTariffRate() {
+        let sanitized = tariffRateText.replacingOccurrences(of: ",", with: ".")
+        if let value = Double(sanitized), value > 0 {
+            viewModel.updateTariffRate(value)
+        } else {
+            viewModel.updateTariffRate(0.12)
+        }
+        tariffRateText = formatDecimal(viewModel.settings.tariffRate)
+    }
+    
+    private func saveMeterReading() {
+        let sanitized = meterReadingText.replacingOccurrences(of: ",", with: ".")
+        if let value = Double(sanitized), value >= 0 {
+            viewModel.updateMeterReading(value)
+        }
+        meterReadingText = formatDecimal(viewModel.settings.currentMeterReading)
     }
 }
 
