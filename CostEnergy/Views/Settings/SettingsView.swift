@@ -4,6 +4,8 @@ struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @State private var showResetAlert = false
     
+    @FocusState private var isFocused: Bool
+    
     private var currencySymbol: String {
         switch viewModel.settings.currency {
         case "RUB", "₽": return "₽"
@@ -33,6 +35,9 @@ struct SettingsView: View {
             }
         }
         .bgGradient()
+        .onTapGesture {
+            isFocused = false
+        }
         .alert("Reset All Data?", isPresented: $showResetAlert) {
             Button("Cancel", role: .cancel) {}
             Button("Reset", role: .destructive) {
@@ -90,6 +95,7 @@ struct SettingsView: View {
                                 .strokeBorder(.white.opacity(0.1), lineWidth: 1)
                         )
                 )
+                .focused($isFocused)
             
             Text("For example: \"My Apartment\", \"Country House\", \"Office\"")
                 .font(.system(size: 14))
@@ -138,6 +144,7 @@ struct SettingsView: View {
                                     .strokeBorder(.white.opacity(0.1), lineWidth: 1)
                             )
                     )
+                    .focused($isFocused)
                 
                 Menu {
                     Button {
@@ -245,6 +252,7 @@ struct SettingsView: View {
                                     .strokeBorder(.white.opacity(0.1), lineWidth: 1)
                             )
                     )
+                    .focused($isFocused)
                 
                 Text("kWh")
                     .font(.system(size: 16, weight: .semibold))

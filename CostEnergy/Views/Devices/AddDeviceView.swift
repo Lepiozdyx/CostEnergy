@@ -4,6 +4,8 @@ struct AddDeviceView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: DevicesViewModel
     
+    @FocusState private var isFocused: Bool
+    
     let deviceToEdit: Device?
     
     @State private var name: String
@@ -106,6 +108,9 @@ struct AddDeviceView: View {
             .padding(.vertical, 20)
         }
         .bgGradient()
+        .onTapGesture {
+            isFocused = false
+        }
     }
     
     private var header: some View {
@@ -164,6 +169,7 @@ struct AddDeviceView: View {
                         )
                 )
                 .keyboardType(keyboardType)
+                .focused($isFocused)
         }
     }
     
@@ -237,6 +243,7 @@ struct AddDeviceView: View {
                                 )
                         )
                         .keyboardType(.numberPad)
+                        .focused($isFocused)
                 }
                 
                 VStack(alignment: .leading, spacing: 8) {
@@ -257,6 +264,7 @@ struct AddDeviceView: View {
                                 )
                         )
                         .keyboardType(.numberPad)
+                        .focused($isFocused)
                 }
             }
         }
