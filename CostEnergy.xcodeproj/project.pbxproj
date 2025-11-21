@@ -6,48 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		FA67E22A2EC36917007BDD83 /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FA67E2232EC36917007BDD83 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		FA7492712EC3684200B838F1 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = FA7492702EC3684200B838F1 /* FirebaseMessaging */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		FA67E2282EC36917007BDD83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FA82A2092EB292BB004A0549 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FA67E2222EC36917007BDD83;
-			remoteInfo = NotificationService;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		FA67E22F2EC36917007BDD83 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				FA67E22A2EC36917007BDD83 /* NotificationService.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		FA67E2232EC36917007BDD83 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA82A2112EB292BB004A0549 /* CostEnergy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CostEnergy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		FA67E22E2EC36917007BDD83 /* Exceptions for "NotificationService" folder in "NotificationService" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = FA67E2222EC36917007BDD83 /* NotificationService */;
-		};
 		FA7492752EC3686200B838F1 /* Exceptions for "CostEnergy" folder in "CostEnergy" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -58,14 +21,6 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		FA67E2242EC36917007BDD83 /* NotificationService */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				FA67E22E2EC36917007BDD83 /* Exceptions for "NotificationService" folder in "NotificationService" target */,
-			);
-			path = NotificationService;
-			sourceTree = "<group>";
-		};
 		FA82A2132EB292BB004A0549 /* CostEnergy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -77,18 +32,10 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		FA67E2202EC36917007BDD83 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FA82A20E2EB292BB004A0549 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA7492712EC3684200B838F1 /* FirebaseMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +46,6 @@
 			isa = PBXGroup;
 			children = (
 				FA82A2132EB292BB004A0549 /* CostEnergy */,
-				FA67E2242EC36917007BDD83 /* NotificationService */,
 				FA82A2122EB292BB004A0549 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				FA82A2112EB292BB004A0549 /* CostEnergy.app */,
-				FA67E2232EC36917007BDD83 /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,28 +61,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FA67E2222EC36917007BDD83 /* NotificationService */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FA67E22B2EC36917007BDD83 /* Build configuration list for PBXNativeTarget "NotificationService" */;
-			buildPhases = (
-				FA67E21F2EC36917007BDD83 /* Sources */,
-				FA67E2202EC36917007BDD83 /* Frameworks */,
-				FA67E2212EC36917007BDD83 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				FA67E2242EC36917007BDD83 /* NotificationService */,
-			);
-			name = NotificationService;
-			packageProductDependencies = (
-			);
-			productName = NotificationService;
-			productReference = FA67E2232EC36917007BDD83 /* NotificationService.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		FA82A2102EB292BB004A0549 /* CostEnergy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA82A21C2EB292BC004A0549 /* Build configuration list for PBXNativeTarget "CostEnergy" */;
@@ -145,19 +68,16 @@
 				FA82A20D2EB292BB004A0549 /* Sources */,
 				FA82A20E2EB292BB004A0549 /* Frameworks */,
 				FA82A20F2EB292BB004A0549 /* Resources */,
-				FA67E22F2EC36917007BDD83 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				FA67E2292EC36917007BDD83 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				FA82A2132EB292BB004A0549 /* CostEnergy */,
 			);
 			name = CostEnergy;
 			packageProductDependencies = (
-				FA7492702EC3684200B838F1 /* FirebaseMessaging */,
 			);
 			productName = CostEnergy;
 			productReference = FA82A2112EB292BB004A0549 /* CostEnergy.app */;
@@ -173,9 +93,6 @@
 				LastSwiftUpdateCheck = 2610;
 				LastUpgradeCheck = 2610;
 				TargetAttributes = {
-					FA67E2222EC36917007BDD83 = {
-						CreatedOnToolsVersion = 26.1;
-					};
 					FA82A2102EB292BB004A0549 = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
@@ -191,7 +108,6 @@
 			mainGroup = FA82A2082EB292BB004A0549;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				FA74926F2EC3684200B838F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA82A2122EB292BB004A0549 /* Products */;
@@ -199,19 +115,11 @@
 			projectRoot = "";
 			targets = (
 				FA82A2102EB292BB004A0549 /* CostEnergy */,
-				FA67E2222EC36917007BDD83 /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		FA67E2212EC36917007BDD83 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FA82A20F2EB292BB004A0549 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -222,13 +130,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		FA67E21F2EC36917007BDD83 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FA82A20D2EB292BB004A0549 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,79 +139,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		FA67E2292EC36917007BDD83 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FA67E2222EC36917007BDD83 /* NotificationService */;
-			targetProxy = FA67E2282EC36917007BDD83 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		FA67E22C2EC36917007BDD83 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NotificationService/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.energystrike.cost.NotificationService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		FA67E22D2EC36917007BDD83 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NotificationService/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.energystrike.cost.NotificationService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 		FA82A21A2EB292BC004A0549 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -437,7 +266,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = CostEnergy/CostEnergy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
@@ -453,7 +281,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.energystrike.cost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -475,7 +303,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = CostEnergy/CostEnergy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
@@ -491,7 +318,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.energystrike.cost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -511,15 +338,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FA67E22B2EC36917007BDD83 /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FA67E22C2EC36917007BDD83 /* Debug */,
-				FA67E22D2EC36917007BDD83 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		FA82A20C2EB292BB004A0549 /* Build configuration list for PBXProject "CostEnergy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -539,25 +357,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		FA74926F2EC3684200B838F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.5.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		FA7492702EC3684200B838F1 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA74926F2EC3684200B838F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA82A2092EB292BB004A0549 /* Project object */;
 }

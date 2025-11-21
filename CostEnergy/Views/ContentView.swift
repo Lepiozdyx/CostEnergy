@@ -1,34 +1,33 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var state = AppStateManager()
-    @StateObject private var fcmManager = FCMManager.shared
+    @StateObject private var manager = StateManager()
         
     var body: some View {
         Group {
-            switch state.appState {
-            case .fetch:
+            switch manager.appState {
+            case .request:
                 LoadingView()
+                
             case .support:
-                if let url = state.webManager.costEnergyURL {
-                    WebViewManager(url: url, webManager: state.webManager)
-                } else if let fcmToken = fcmManager.fcmToken {
-                    WebViewManager(
-                        url: NetworkManager.getInitialURL(fcmToken: fcmToken),
-                        webManager: state.webManager
+                if let url = manager.networkManager.cesURL {
+                    WKWebViewManager(
+                        url: url,
+                        webManager: manager.networkManager
                     )
                 } else {
-                    WebViewManager(
+                    WKWebViewManager(
                         url: NetworkManager.initialURL,
-                        webManager: state.webManager
+                        webManager: manager.networkManager
                     )
                 }
-            case .final:
+                
+            case .loading:
                 MainMenuView()
             }
         }
         .onAppear {
-            state.stateCheck()
+            manager.stateRequest()
         }
     }
 }
